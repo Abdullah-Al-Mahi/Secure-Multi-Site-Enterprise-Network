@@ -1,3 +1,7 @@
-# Cisco Packet Tracer Simulation
+# Packet Tracer Simulation
 
-The final validated `.pkt` is intentionally **not included** in this documentation package. Keep the latest saved Phase 8 Packet Tracer file in your private `02_Implementation` project folder. Do not publish a configuration-bearing `.pkt` until a separate copy has been sanitized, inspected and retested.
+I built and tested the network using Cisco Packet Tracer 9.0.0.0810.
+
+I'm keeping the original `.pkt` file private because it includes saved device credentials and SSH key material. The network diagram, configuration documentation, test results and screenshots are available in this repository instead.
+
+I can show the working network in Packet Tracer during a private demonstration if needed.

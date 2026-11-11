@@ -1,84 +1,71 @@
 # Secure Multi-Site Enterprise Network
-### VLAN Segmentation, OSPF Routing, Centralized Network Services & Layered Security
 
-**Simulation:** Cisco Packet Tracer 9.0.0.0810 · Cisco 2911 routers · Cisco 2960-24TT-L switches  
-**Scenario:** Meridian Technologies Malaysia (fictional enterprise)  
-**Sites:** Headquarters — Kuala Lumpur; branches — Penang and Johor Bahru  
-**Project scope:** Educational, simulated network. Not a production deployment or Internet-connected infrastructure.
+*A Cisco Packet Tracer project covering enterprise networking, routing, and security.*
 
-![Logical network topology](diagrams/Final_Topology.png)
+I built this project to practice designing and securing a network that connects multiple office locations. The scenario is based on a fictional company, **Meridian Technologies Malaysia**, with a headquarters in Kuala Lumpur and branches in Penang and Johor Bahru.
 
-## Project overview
+My aim was to get the different sites communicating through dynamic routing, provide shared services from HQ, and restrict access between departments where it isn't needed.
 
-Designed and implemented a three-site enterprise topology using subnetted departmental VLANs, 802.1Q trunks, router-on-a-stick inter-VLAN routing, single-area OSPF, per-site DHCP, and shared DNS/HTTP services hosted at HQ. Enforced routed ACLs, SSH-only management restricted to HQ IT, sticky-MAC port security, and unused-port isolation.
+**Tools:** Cisco Packet Tracer 9.0.0.0810 · Cisco 2911 routers · Cisco 2960-24TT-L switches
 
-## At a glance
+![Network topology](diagrams/Final_Topology.png)
 
-| Component | Implemented |
+## Network overview
+
+| Component | Setup |
 |---|---|
-| Sites | 3 (HQ, Penang, Johor Bahru) |
-| Routers | 3 × Cisco 2911 |
-| Switches | 4 × Cisco 2960-24TT-L |
-| Endpoints | 15 PCs, 2 servers |
-| VLAN design | 10 IT, 20 HR, 30 Finance, 40 Management, 50 Guest; HQ VLAN 60 servers; 99 management; 998 native reserve; 999 parking |
-| WAN | HQ–Penang and HQ–Johor Bahru, each simulated via a /30 point-to-point Ethernet link |
-| Routing | OSPF process 1, area 0; neighbor adjacencies across WAN only |
-| Addressing | Local /24 subnets, /30 WANs; router-based client DHCP |
-| Services | HQ DNS `10.10.60.10`; HQ HTTP intranet `10.10.60.20` |
-| Security | Extended router ACLs, SSH v2 and VTY ACL, access-port sticky-MAC policy, shutdown unused ports |
-| Port security | 17 PC/server access interfaces configured and verified |
-| Unused ports | 82 planned interfaces assigned VLAN 999 and shutdown |
+| Locations | Kuala Lumpur (HQ), Penang, Johor Bahru |
+| Devices | 3 routers, 4 switches, 15 PCs, 2 servers |
+| Departments | IT, HR, Finance, Management, Guest |
+| VLANs | 10–50 for departments, 60 for HQ servers, 99 for management |
+| Routing | Router-on-a-stick and OSPF area 0 |
+| Network services | DHCP at each site; DNS and intranet web server at HQ |
+| Security | Extended ACLs, SSHv2, port security, and disabled unused ports |
 
-## Key outcomes
+The sites use a hub-and-spoke layout: Penang and Johor Bahru connect through the HQ router. Each department has its own VLAN and IP subnet, with inter-VLAN traffic routed through the local router.
 
-- Demonstrated OSPF adjacency and dynamic HQ↔branch routing; Penang-to-Johor traceroute traverses HQ (172.16.0.1) then Johor (172.16.0.6).
-- Verified DNS-name resolution and HTTP intranet access from allowed departments across offices.
-- Demonstrated blocked inter-department traffic: Penang HR → Johor Finance, as well as guest isolation and management restrictions in prior live tests.
-- Verified allowed HQ IT administrative SSH and denied unauthorized branch IT SSH according to the management source policy.
-- Verified sticky MAC learning on all 17 access ports; shutdown behavior is documented as a separate controlled security test.
-- Evaluated OSPF route cost on R-PEN: metric **3 → 52 → 3** after change/restoration, with the neighbor maintaining FULL adjacency.
-- Demonstrated an ICMP round trip in Packet Tracer Simulation Mode from Penang IT to HQ DNS via the HQ network.
+## What I implemented
 
-See [validation and evidence](docs/04_Validation_and_Evidence.md) for which results are backed by files in this package and which were previously confirmed interactively.
+- **VLANs and routing:** Set up VLANs, 802.1Q trunk links, and router subinterfaces for communication between approved networks.
+- **OSPF:** Configured routing across all three sites, with neighbor relationships on the WAN links.
+- **DHCP, DNS, and web services:** Configured DHCP for client PCs and a central DNS server and intranet website at HQ.
+- **Access control:** Used router ACLs to restrict guest access and unwanted traffic between departments while allowing required services.
+- **Secure management:** Enabled SSHv2 and limited administrative login access to the HQ IT network.
+- **Switch security:** Configured sticky-MAC port security on 17 PC/server access ports and moved 82 unused ports to a separate VLAN before shutting them down.
 
-## Architecture and documentation
+## Testing and results
 
-| Resource | Location |
+I tested the network in both Realtime and Simulation modes rather than relying only on the saved configurations. Some of the checks included:
+
+- Opening the HQ intranet by its DNS name from allowed PCs at the branch offices.
+- Confirming that Penang HR could not ping a protected Finance PC in Johor Bahru.
+- Checking that authorized SSH access worked and unauthorized management connections were blocked.
+- Verifying OSPF neighbors and tracing traffic from Penang to Johor Bahru through HQ.
+- Changing the OSPF cost on a Penang interface, observing the route metric change from **3 to 52**, then restoring it to **3**.
+- Following an ICMP request and reply between Penang IT and the HQ DNS server in Simulation mode.
+
+The test matrix and screenshots are included in this repository. Some earlier test results are recorded in the matrix without a separate screenshot.
+
+## Documentation
+
+| File | What's inside |
 |---|---|
-| Logical network diagram, editable Graphviz source | [`diagrams/Final_Topology.dot`](diagrams/Final_Topology.dot) |
-| Architecture and device/cable map | [`docs/01_Architecture.md`](docs/01_Architecture.md) |
-| IP addressing and VLAN reference | [`docs/02_IP_Addressing_and_VLANs.md`](docs/02_IP_Addressing_and_VLANs.md) |
-| Security policy and implementation | [`docs/03_Security_Controls.md`](docs/03_Security_Controls.md) |
-| Validation matrix and test proof | [`docs/04_Validation_and_Evidence.md`](docs/04_Validation_and_Evidence.md) |
-| Export and publishing safety | [`docs/05_Safe_Configuration_Export.md`](docs/05_Safe_Configuration_Export.md) |
-| Phase 9 completion checklist | [`docs/06_Phase9_Completion_Checklist.md`](docs/06_Phase9_Completion_Checklist.md) |
+| [Network diagram](diagrams/Final_Topology.png) | Overview of the three-site layout |
+| [Editable diagram source](diagrams/Final_Topology.dot) | Graphviz topology file |
+| [Architecture](docs/01_Architecture.md) | Devices, interfaces, and connections |
+| [IP addresses and VLANs](docs/02_IP_Addressing_and_VLANs.md) | Addressing and VLAN plan |
+| [Security controls](docs/03_Security_Controls.md) | ACLs, management access, and switch security |
+| [Validation and evidence](docs/04_Validation_and_Evidence.md) | Tests and supporting screenshots |
+| [Validation matrix](Validation_Matrix.xlsx) | Test cases and outcomes |
+| [Phase 7 screenshots](evidence/phase7) | Connectivity and access-control tests |
+| [Phase 8 evidence](evidence/phase8) | OSPF cost and packet-flow tests |
 
-## Open in Packet Tracer
+## Why the Packet Tracer file isn't public
 
-1. Install **Cisco Packet Tracer 9.x** (original network built in 9.0.0.0810).
-2. Open the final validated `.pkt` file locally from the project `02_Implementation` folder.
-3. Switch to Realtime mode for ordinary operation; use Simulation mode for packet-flow evidence.
-4. For key tests, see the matrix in `docs/04_Validation_and_Evidence.md`. Device configuration must be saved (`copy running-config startup-config`) before final `.pkt` saving.
+I haven't uploaded the original `.pkt` file because it contains saved lab credentials and SSH key material. The diagrams, documentation, and testing evidence are public so the design and results can still be reviewed. I can demonstrate the working simulation privately when needed.
 
-**Important:** The `.pkt` file is **not bundled in this documentation-only package** because Packet Tracer projects may contain account hashes, passwords, RSA private keys or other credential material. Do not publish the original simulation or raw device configuration exports until secrets and keys have been sanitized and checked. The full simulation is intended for controlled local demonstrations.
+## Scope
 
-## Scope and limitations
+This is an educational network simulation, not a production deployment. The WAN connections are simulated Ethernet links, and the project does not include an Internet connection, VPN, redundant WAN, or dedicated firewall. Packet Tracer's simulation timestamps are not real-world latency measurements.
 
-- WAN connections use Ethernet links to simulate private carrier circuits; this does not replicate real Malaysian intercity latency or service reliability.
-- There is no ISP, Internet connectivity, NAT, VPN encryption, redundant WAN, or dedicated stateful firewall in the verified baseline.
-- IPv4 router ACLs are stateless; demonstrated policy controls apply to routed flows, not same-VLAN device-to-device switching.
-- Packet Tracer's event timestamps are simulated timing, **not** benchmarks of throughput, real-world delay, jitter, or SLA compliance.
-
-
-## Project status
-
-**Status: Completed — Phases 0–10**
-
-Designed, implemented, secured, tested, and documented a three-site enterprise network using Cisco Packet Tracer.
-
-The project includes VLAN segmentation, OSPF routing, DHCP, DNS, HTTP, ACL enforcement, SSHv2 administration, port security, and network validation.
-
-The original Packet Tracer `.pkt` file is kept private because it contains administrative credential material and cryptographic keys.
-
-This public repository contains the network architecture, technical documentation, validation results, and test evidence.
-
+**Project status:** Completed — November 2026.
