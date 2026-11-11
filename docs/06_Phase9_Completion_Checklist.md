@@ -1,4 +1,4 @@
-# 06 — Phase 9 Completion & Evidence Checklist
+# 06 - Phase 9 Completion & Evidence Checklist
 
 **Use the project working folder on Windows:**
 `E:\CS PROJECTS\Secure-Multi-Site-Enterprise-Network`
