@@ -1,4 +1,4 @@
-# 01 — Architecture & Physical Interface Map
+# 01 - Architecture & Physical Interface Map
 
 ## Business context
 A fictional enterprise operates a Headquarters in Kuala Lumpur, plus Penang and Johor Bahru branches. HQ hosts centralized intranet and DNS services; branch endpoints reach approved services over simulated routed WAN links.
@@ -28,7 +28,7 @@ A fictional enterprise operates a Headquarters in Kuala Lumpur, plus Penang and 
 | SW-HQ-SERVER | Fa0/1 | SRV-HQ-DNS | Fa0 | Access VLAN 60 |
 | SW-HQ-SERVER | Fa0/2 | SRV-HQ-WEB | Fa0 | Access VLAN 60 |
 
-Each of the three access switches uses Fa0/1–Fa0/5 for IT, HR, Finance, Management, and Guest PCs respectively. Router-facing and inter-switch trunks are not subject to access-port port security.
+Each of the three access switches uses Fa0/1–Fa0/5 for IT, HR, Finance, Management and Guest PCs respectively. Router-facing and inter-switch trunks are not subject to access-port port security.
 
 ## Routing design
 - Single OSPF process **1**, area **0**
