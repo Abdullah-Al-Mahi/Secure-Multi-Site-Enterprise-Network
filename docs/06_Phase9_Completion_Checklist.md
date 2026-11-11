@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # 06 - Phase 9 Completion & Evidence Checklist
+=======
+# 06 — Phase 9 Completion & Evidence Checklist
+>>>>>>> parent of ac86c79 (Improved project presentation and evidence documentation.)
 
 **Use the project working folder on Windows:**
 `E:\CS PROJECTS\Secure-Multi-Site-Enterprise-Network`

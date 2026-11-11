@@ -1,48 +1,62 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Validation Results and Evidence
 =======
 # 04 - Validation Results & Evidence Registry
 >>>>>>> c5159ad1b214393349e6ec3c3edd435c629c0210
+=======
+# 04 — Validation Results & Evidence Registry
+>>>>>>> parent of ac86c79 (Improved project presentation and evidence documentation.)
 
-I checked the network in stages as I configured routing, services and security. The table below distinguishes screenshots included in this repository from tests that were completed earlier but do not have a separate image attached.
+## Evidence policy
 
-| Test | What I checked | Evidence / result |
+This document separates **attached screenshot proof** from **previously reported successful tests**. All tests have been performed during the project workflow, but not every screenshot was supplied for inclusion in this package. The available screenshot files are copied into the evidence folder; missing evidence is not fabricated. Full machine-readable details: `Validation_Matrix.csv`.
+
+## Test matrix
+
+| Test | Scenario | Verified status / evidence |
 |---|---|---|
-| T01 | HQ IT receives a DHCP lease | Verified during setup; no screenshot included |
-| T02 | Penang HR receives a DHCP lease | Verified during setup; no screenshot included |
-| T03 | HQ VLANs, trunks and router interfaces | Verified during setup; no screenshot included |
-| T04 | HQ OSPF neighbors | Verified during setup; no screenshot included |
-| T05 | Penang learns OSPF routes | Verified during setup; no screenshot included |
-| T06 | Penang Finance opens the intranet by hostname | [PASS — screenshot](../evidence/phase7/T06_PEN_FIN_Intranet.png) |
-| T07 | Johor HR opens the intranet by hostname | [PASS — screenshot](../evidence/phase7/T07_JHB_HR_Intranet.png) |
-| T08 | HQ HR traffic to HQ Finance is restricted | Verified during security testing; no screenshot included |
-| T09 | Penang HR cannot ping Johor Finance | [PASS — screenshot](../evidence/phase7/T09_PEN_HR_to_JHB_FIN_Blocked.png) |
-| T10 | HQ Guest cannot access the protected HQ intranet | Verified during security testing; no screenshot included |
-| T11 | Johor Guest cannot access protected HQ services | Verified during security testing; no screenshot included |
-| T12 | HQ IT can use authorized SSH management | Verified during security testing; no screenshot included |
-| T13 | Branch IT is denied unauthorized SSH management | Verified during security testing; no screenshot included |
-| T14 | Unauthorized MAC causes port-security shutdown | Test reported as passed; screenshot not included |
-| T15 | Unused Penang switch port Fa0/6 is shut down | [PASS — port-status screenshot](../evidence/phase7/T15_Unused_Port_Shutdown.png); connectivity test also reported as passed |
-| T16 | Penang-to-Johor traceroute follows the HQ path | [PASS — screenshot](../evidence/phase7/T16_PEN_to_JHB_Traceroute.png) |
-| T17 | OSPF cost changes and returns to normal | [PASS — CLI results](../evidence/phase8/T17_OSPF_Cost_Evaluation.txt) |
-| T18 | ICMP request/reply follows the expected route | [PASS — simulation events](../evidence/phase8/T18_ICMP_Simulation_EventList.png) and [reply PDU](../evidence/phase8/T18_ICMP_Reply_PDU.png) |
+| T01 | HQ IT DHCP lease | Previously verified; source evidence not bundled |
+| T02 | Penang HR DHCP lease | Previously verified; source evidence not bundled |
+| T03 | HQ VLANs, trunks, router interfaces | Previously verified; source evidence not bundled |
+| T04 | HQ OSPF neighbors | Previously verified; source evidence not bundled |
+| T05 | Penang learned OSPF routes | Previously verified; source evidence not bundled |
+| T06 | Penang Finance opens intranet by name | PASS — screenshot |
+| T07 | Johor HR opens intranet by name | PASS — screenshot |
+| T08 | HQ HR → HQ Finance routed traffic | Previously verified; source evidence not bundled |
+| T09 | Penang HR → Johor Finance ping | PASS — screenshot, gateway unreachable response |
+| T10 | HQ Guest → HQ intranet | Previously verified; source evidence not bundled |
+| T11 | Johor Guest → HQ protected service | Previously verified; source evidence not bundled |
+| T12 | HQ IT SSH to Penang switch | Previously verified; source evidence not bundled |
+| T13 | Branch IT SSH to branch router/switch | Previously verified; source evidence not bundled |
+| T14 | Unauthorized MAC on secure access port | User-reported PASS; screenshot not bundled |
+| T15 | Unused Penang switch Fa0/6 | PASS — port-status screenshot; user reported connectivity test passed |
+| T16 | Penang → Johor route traceroute | PASS — screenshot |
+| T17 | OSPF route-cost evaluation | PASS — user-shared CLI outputs |
+| T18 | ICMP simulation Penang IT → HQ DNS | PASS — simulation screenshots |
 
-## OSPF route-cost test (T17)
+## Phase 8 OSPF cost demonstration (T17)
 
-On `R-PEN`, the route to `10.30.30.0/24` continued through HQ (`172.16.0.1`). I changed the OSPF cost on `GigabitEthernet0/1` to 50, observed the route metric change from **3 to 52**, then removed the override and confirmed it returned to **3**. The HQ OSPF neighbor stayed in FULL state.
+From `R-PEN` route `10.30.30.0/24`, via HQ next hop `172.16.0.1`:
 
-The path did not change because this topology has no alternate Penang-to-Johor link.
+| State | OSPF metric | Neighbor |
+|---|---:|---|
+| Before change | 3 | FULL/BDR |
+| R-PEN Gi0/1 `ip ospf cost 50` | 52 | FULL/BDR |
+| `no ip ospf cost` restored | 3 | FULL/BDR |
 
-## ICMP simulation test (T18)
+The WAN path did not change because no alternate Penang–Johor route exists. The test demonstrates metric calculation and reconvergence, not load balancing or redundancy.
 
-Packet Tracer showed an ICMP exchange between Penang IT and the HQ DNS server:
+## Phase 8 simulation (T18)
 
-`PC-PEN-IT → SW-PEN-ACCESS → R-PEN → R-HQ → SW-HQ-ACCESS → SW-HQ-SERVER → SRV-HQ-DNS`
+Packet Tracer event sequence records ICMP request/reply:
 
-The reply returned across the same network. This demonstrates packet forwarding in the simulator, not a real-world latency or throughput benchmark.
+`PC-PEN-IT → SW-PEN-ACCESS → R-PEN → R-HQ → SW-HQ-ACCESS → SW-HQ-SERVER → SRV-HQ-DNS`, returning by the reverse path. A return ICMP reply (ICMP type 0) is visible in the PDU inspection screenshot. This proves simulated forwarding; the event time values are not real network latency benchmarks.
 
-## Final topology
+## Recommended documentation screenshots still to add locally
 
-The [actual Packet Tracer workspace screenshot](../evidence/topology/PacketTracer_Full_Topology.png) is included, alongside the [logical network diagram](../diagrams/Final_Topology.png).
+1. A full screenshot of the **final Phase 8 network topology** (`evidence/topology/PacketTracer_Full_Topology.png`).
+2. The controlled unauthorized-MAC port-security violation proof from the **separate test copy** (T14), if retained.
+3. Any final administrative SSH restriction screenshots if you want to show extra interview evidence.
 
-The original `.pkt` file and full raw device configuration exports are kept private because they can contain credential and key material. No test evidence has been invented to fill missing screenshots.
+**Do not include screenshots exposing passwords or secret hashes in a public repository.**
