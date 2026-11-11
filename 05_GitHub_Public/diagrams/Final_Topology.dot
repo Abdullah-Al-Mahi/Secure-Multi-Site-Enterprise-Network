@@ -1,0 +1,38 @@
+graph Enterprise {
+  graph [label="MERIDIAN TECHNOLOGIES MALAYSIA | Secure Multi-Site Enterprise Network", labelloc=t, fontsize=24, fontname="DejaVu Sans", fontcolor="#14243d", bgcolor="#ffffff", ranksep=0.8, nodesep=0.6, pad=0.35, splines=polyline, compound=true, layout=dot, overlap=false];
+  node [shape=box, style="rounded,filled", fillcolor="#f8fafc", color="#cbd5e1", penwidth=1.4, fontname="DejaVu Sans", fontsize=12, fontcolor="#182739", margin="0.16,0.10"];
+  edge [color="#64748b", penwidth=2.0, fontname="DejaVu Sans", fontsize=10, fontcolor="#475569"];
+
+  subgraph cluster_HQ {
+    label="HEADQUARTERS · Kuala Lumpur"; labelloc=t; fontsize=17; fontname="DejaVu Sans"; fontcolor="#1d4ed8"; color="#93c5fd"; bgcolor="#eff6ff"; style="rounded,filled";
+    RHQ [label="R-HQ\nCisco 2911 | OSPF ID 1.1.1.1", fillcolor="#dbeafe", color="#60a5fa"];
+    SHQ [label="SW-HQ-ACCESS\n2960 | VLANs 10/20/30/40/50/99", fillcolor="#ffffff"];
+    SS [label="SW-HQ-SERVER\n2960 | VLANs 60/99", fillcolor="#ffffff"];
+    HQPC [label="5 PCs · IT / HR / FIN / MGT / GUEST\n10.10.{10,20,30,40,50}.0/24", fillcolor="#f8fafc"];
+    DNS [label="SRV-HQ-DNS\n10.10.60.10 | DNS", fillcolor="#d1fae5",color="#34d399"];
+    WEB [label="SRV-HQ-WEB\n10.10.60.20 | HTTP intranet", fillcolor="#d1fae5",color="#34d399"];
+    RHQ -- SHQ [label="Gi0/0 ↔ Gi0/1\n802.1Q | native 998"];
+    SHQ -- SS [label="Gi0/2 ↔ Gi0/1\n802.1Q | native 998"];
+    SHQ -- HQPC [label="Fa0/1–Fa0/5"];
+    SS -- DNS [label="Fa0/1 | VLAN 60"];
+    SS -- WEB [label="Fa0/2 | VLAN 60"];
+  }
+  subgraph cluster_PEN {
+    label="PENANG BRANCH"; labelloc=t; fontsize=17; fontname="DejaVu Sans"; fontcolor="#047857"; color="#6ee7b7"; bgcolor="#ecfdf5"; style="rounded,filled";
+    RP [label="R-PEN\nCisco 2911 | OSPF ID 2.2.2.2", fillcolor="#d1fae5",color="#34d399"];
+    SP [label="SW-PEN-ACCESS\n2960 | VLANs 10/20/30/40/50/99", fillcolor="#ffffff"];
+    PPC [label="5 PCs · IT / HR / FIN / MGT / GUEST\n10.20.{10,20,30,40,50}.0/24", fillcolor="#f8fafc"];
+    RP -- SP [label="Gi0/0 ↔ Gi0/1\n802.1Q | native 998"];
+    SP -- PPC [label="Fa0/1–Fa0/5"];
+  }
+  subgraph cluster_JHB {
+    label="JOHOR BAHRU BRANCH"; labelloc=t; fontsize=17; fontname="DejaVu Sans"; fontcolor="#9a3412"; color="#fdba74"; bgcolor="#fff7ed"; style="rounded,filled";
+    RJ [label="R-JHB\nCisco 2911 | OSPF ID 3.3.3.3", fillcolor="#ffedd5",color="#fb923c"];
+    SJ [label="SW-JHB-ACCESS\n2960 | VLANs 10/20/30/40/50/99", fillcolor="#ffffff"];
+    JPC [label="5 PCs · IT / HR / FIN / MGT / GUEST\n10.30.{10,20,30,40,50}.0/24", fillcolor="#f8fafc"];
+    RJ -- SJ [label="Gi0/0 ↔ Gi0/1\n802.1Q | native 998"];
+    SJ -- JPC [label="Fa0/1–Fa0/5"];
+  }
+  RHQ -- RP [label="HQ Gi0/1 172.16.0.1\nPEN Gi0/1 172.16.0.2\nWAN /30 · OSPF area 0", color="#059669", penwidth=3.2];
+  RHQ -- RJ [label="HQ Gi0/2 172.16.0.5\nJHB Gi0/1 172.16.0.6\nWAN /30 · OSPF area 0", color="#ea580c", penwidth=3.2];
+}

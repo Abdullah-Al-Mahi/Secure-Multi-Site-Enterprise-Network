@@ -1,0 +1,19 @@
+﻿Test ID,Scenario,Expected,Actual / Evidence status,Evidence filename or phase
+T01,HQ IT DHCP lease,HQ DHCP correct,Previously verified; source evidence not bundled,Phase 5
+T02,Penang HR DHCP lease,Penang DHCP correct,Previously verified; source evidence not bundled,Phase 5
+T03,"HQ VLANs, trunks, router interfaces",Correct VLAN/trunk mapping,Previously verified; source evidence not bundled,Phase 2
+T04,HQ OSPF neighbors,2 FULL adjacencies,Previously verified; source evidence not bundled,Phase 4
+T05,Penang learned OSPF routes,HQ/Johor networks present,Previously verified; source evidence not bundled,Phase 4
+T06,Penang Finance opens intranet by name,Allowed; page loads,PASS — screenshot,evidence/phase7/T06_PEN_FIN_Intranet.png
+T07,Johor HR opens intranet by name,Allowed; page loads,PASS — screenshot,evidence/phase7/T07_JHB_HR_Intranet.png
+T08,HQ HR → HQ Finance routed traffic,Blocked,Previously verified; source evidence not bundled,Phase 6
+T09,Penang HR → Johor Finance ping,Blocked,"PASS — screenshot, gateway unreachable response",evidence/phase7/T09_PEN_HR_to_JHB_FIN_Blocked.png
+T10,HQ Guest → HQ intranet,Blocked,Previously verified; source evidence not bundled,Phase 6
+T11,Johor Guest → HQ protected service,Blocked,Previously verified; source evidence not bundled,Phase 6
+T12,HQ IT SSH to Penang switch,Allowed,Previously verified; source evidence not bundled,Phase 6
+T13,Branch IT SSH to branch router/switch,Denied,Previously verified; source evidence not bundled,Phase 6
+T14,Unauthorized MAC on secure access port,Violation shutdown,User-reported PASS; screenshot not bundled,Phase 6
+T15,Unused Penang switch Fa0/6,Administratively down / no access,PASS — port-status screenshot; user reported connectivity test passed,evidence/phase7/T15_Unused_Port_Shutdown.png
+T16,Penang → Johor route traceroute,"Via HQ `172.16.0.1`, then Johor `172.16.0.6`",PASS — screenshot,evidence/phase7/T16_PEN_to_JHB_Traceroute.png
+T17,OSPF route-cost evaluation,Metric 3 → 52 → 3; neighbor FULL,PASS — user-shared CLI outputs,evidence/phase8/T17_OSPF_Cost_Evaluation.txt
+T18,ICMP simulation Penang IT → HQ DNS,Echo request and reply across expected path,PASS — simulation screenshots,evidence/phase8/T18_ICMP_Simulation_EventList.png
