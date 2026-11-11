@@ -1,10 +1,10 @@
 # Secure Multi-Site Enterprise Network
 
-*A Cisco Packet Tracer project covering enterprise networking, routing, and security.*
+*A Cisco Packet Tracer project covering enterprise networking, routing and security.*
 
 I built this project to practice designing and securing a network that connects multiple office locations. The scenario is based on a fictional company, **Meridian Technologies Malaysia**, with a headquarters in Kuala Lumpur and branches in Penang and Johor Bahru.
 
-My aim was to get the different sites communicating through dynamic routing, provide shared services from HQ, and restrict access between departments where it isn't needed.
+My aim was to get the different sites communicating through dynamic routing, provide shared services from HQ and restrict access between departments where it isn't needed.
 
 **Tools:** Cisco Packet Tracer 9.0.0.0810 · Cisco 2911 routers · Cisco 2960-24TT-L switches
 
@@ -62,10 +62,10 @@ The test matrix and screenshots are included in this repository. Some earlier te
 
 ## Why the Packet Tracer file isn't public
 
-I haven't uploaded the original `.pkt` file because it contains saved lab credentials and SSH key material. The diagrams, documentation, and testing evidence are public so the design and results can still be reviewed. I can demonstrate the working simulation privately when needed.
+I haven't uploaded the original `.pkt` file because it contains saved lab credentials and SSH key material. The diagrams, documentation and testing evidence are public so the design and results can still be reviewed. I can demonstrate the working simulation privately when needed.
 
 ## Scope
 
-This is an educational network simulation, not a production deployment. The WAN connections are simulated Ethernet links, and the project does not include an Internet connection, VPN, redundant WAN, or dedicated firewall. Packet Tracer's simulation timestamps are not real-world latency measurements.
+This is an educational network simulation, not a production deployment. The WAN connections are simulated Ethernet links and the project does not include an Internet connection, VPN, redundant WAN, or dedicated firewall. Packet Tracer's simulation timestamps are not real-world latency measurements.
 
 **Project status:** Completed — November 2026.
