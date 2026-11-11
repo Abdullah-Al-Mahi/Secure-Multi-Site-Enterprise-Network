@@ -1,4 +1,4 @@
-# 04 — Validation Results & Evidence Registry
+# 04 - Validation Results & Evidence Registry
 
 ## Evidence policy
 
