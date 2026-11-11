@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Validation Results and Evidence
+=======
+# 04 - Validation Results & Evidence Registry
+>>>>>>> c5159ad1b214393349e6ec3c3edd435c629c0210
 
 I checked the network in stages as I configured routing, services and security. The table below distinguishes screenshots included in this repository from tests that were completed earlier but do not have a separate image attached.
 

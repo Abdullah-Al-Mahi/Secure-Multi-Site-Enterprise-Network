@@ -1,4 +1,4 @@
-# 02 — IP Addressing and VLAN Reference
+# 02 - IP Addressing and VLAN Reference
 
 ## VLAN roles
 
