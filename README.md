@@ -69,7 +69,16 @@ See [validation and evidence](docs/04_Validation_and_Evidence.md) for which resu
 - IPv4 router ACLs are stateless; demonstrated policy controls apply to routed flows, not same-VLAN device-to-device switching.
 - Packet Tracer's event timestamps are simulated timing, **not** benchmarks of throughput, real-world delay, jitter, or SLA compliance.
 
-## Current milestone
 
-Phases 0–8: implementation and demonstrated tests completed as recorded in the working session.  
-Phase 9: documentation package prepared; folder integration, final Packet Tracer file, full topology screenshot, and final evidence review still require the operator's confirmation.
+## Project status
+
+**Status: Completed — Phases 0–10**
+
+Designed, implemented, secured, tested, and documented a three-site enterprise network using Cisco Packet Tracer.
+
+The project includes VLAN segmentation, OSPF routing, DHCP, DNS, HTTP, ACL enforcement, SSHv2 administration, port security, and network validation.
+
+The original Packet Tracer `.pkt` file is kept private because it contains administrative credential material and cryptographic keys.
+
+This public repository contains the network architecture, technical documentation, validation results, and test evidence.
+

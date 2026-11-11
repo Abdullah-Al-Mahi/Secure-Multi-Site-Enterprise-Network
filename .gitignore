@@ -1,0 +1,6 @@
+*.pkt
+*.pka
+*.pks
+*.pem
+*.key
+.env
