@@ -68,4 +68,4 @@ I haven't uploaded the original `.pkt` file because it contains saved lab creden
 
 This is an educational network simulation, not a production deployment. The WAN connections are simulated Ethernet links and the project does not include an Internet connection, VPN, redundant WAN, or dedicated firewall. Packet Tracer's simulation timestamps are not real-world latency measurements.
 
-**Project status:** Completed — November 2026.
+**Project status:** Completed- November 2026.
