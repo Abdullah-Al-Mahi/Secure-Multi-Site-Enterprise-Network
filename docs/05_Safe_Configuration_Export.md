@@ -1,4 +1,4 @@
-# 05 — Safe Configuration Export & Public Sharing
+# 05 - Safe Configuration Export & Public Sharing
 
 ## Preferred safe deliverable
 Keep your verified `.pkt` file locally for demonstrations. The included documentation/diagrams/evidence files are a separate, **public-friendly starting point**, not a claim that all content is automatically safe. Perform a final visual and text security review before sharing.
