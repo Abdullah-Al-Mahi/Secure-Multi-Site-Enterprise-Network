@@ -1,4 +1,4 @@
-# 03 — Security Design and Verified Controls
+# 03 - Security Design and Verified Controls
 
 ## Security policy (simulation scope)
 
